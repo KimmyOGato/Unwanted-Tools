@@ -1,19 +1,40 @@
-# Unwanted Tools v0.3.2
+# Unwanted Tools v0.3.3
 
 Uma aplicação desktop elegante para buscar, baixar e gerenciar conteúdo arquivado de várias fontes.
 
-## ✨ O que é Novo em 0.3.2
+## 🚀 O que é Novo em 0.3.3
 
-- 🔄 **Auto-Update System** - App verifica por atualizações automaticamente
-- 🎬 **Melhorado Video Downloader** - yt-dlp agora integrado, sem instalação externa
-- 📋 **Suporte a Playlists** - Baixe apenas um vídeo ou a playlist inteira
-- 💾 **Preservação de Dados** - Suas configurações e histórico são preservados nas atualizações
-- 🎨 **Interface Redesenhada** - Novo design moderno com gradientes e animações
+- 🎥 **YouTube Video Finder** - Encontre vídeos deletados do YouTube em múltiplos arquivos
+- 🔍 **Multi-Mode Search** - Busque por nome do vídeo, canal ou ID de vídeo
+- 📚 **Múltiplas Fontes de Arquivo**:
+  - Wayback Machine
+  - Filmot (especializado em YouTube deletados)
+  - Hobune (YouTube archive/mirror)
+  - RemovedEDM (Música/vídeos removidos)
+- ✅ **Auto-Update Fixo** - Migração completa para novo repositório
+- 🎨 **Interface Moderna** - Radio buttons para seleção de modo de busca
+- 📥 **Download de Vídeos** - Baixe vídeos encontrados nos arquivos
+
+## ⬆️ Migração de Repositório
+
+**Repositório Antigo**: ~~`github.com/KimmyOGato/unwanted-wayback-tools`~~
+**Novo Repositório**: `github.com/KimmyOGato/Unwanted-Tools`
+
+A partir de **v0.3.3**, todas as atualizações serão publicadas no novo repositório. Se você está usando uma versão anterior, recomenda-se atualizar para obter as correções de auto-update.
 
 ## Características Principais
 
-### 🕰️ Wayback Machine Search
+### 🎥 YouTube Video Finder (NEW - v0.3.3)
+- Buscar vídeos deletados do YouTube
+- 3 modos de busca: Por Nome/Termo, Por Canal, Por ID
+- Consulta múltiplos arquivos simultâneos
+- Download de vídeos arquivados
+- Interface com seletor de modo de busca
+
+### 🕰️ Wayback Machine Search (Melhorado em v0.3.3)
 - Buscar recursos arquivados (imagens, áudio, vídeo, documentos)
+- Pesquisa profunda "por toda a way back machine"
+- Queries 16+ sites de mídia principais
 - Filtrar por tipo de conteúdo
 - Filtrar por período de datas
 - Paginação automática (20 itens por página)
