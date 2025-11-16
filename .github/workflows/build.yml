@@ -1,0 +1,99 @@
+name: Build Windows Installer
+
+on:
+  push:
+    branches: [ main, master ]
+    tags: ['v*']
+  workflow_dispatch: {}
+
+jobs:
+  build-win:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Ensure ImageMagick (magick) available
+        shell: pwsh
+        run: |
+          if (-not (Get-Command magick -ErrorAction SilentlyContinue)) {
+            Write-Host "Installing ImageMagick via Chocolatey"
+            choco install imagemagick --no-progress -y
+          } else { Write-Host "ImageMagick already available" }
+
+      - name: Generate PNG from SVG (if present)
+        shell: pwsh
+        run: |
+          if (Test-Path build\icon.svg) {
+            magick -background none build\icon.svg -resize 256x256 build\icon.png
+            Write-Host "Generated build\icon.png from SVG"
+          } else {
+            Write-Host "No build/icon.svg found — skipping SVG conversion"
+          }
+
+      - name: Convert PNG to ICO (if PNG exists)
+        shell: pwsh
+        run: |
+          if (Test-Path build\icon.png) {
+            npx png-to-ico build\icon.png > build\icon.ico
+            Write-Host "Created build\icon.ico"
+          } else {
+            Write-Host "No build/icon.png found — generate-icon script may produce one"
+          }
+
+      - name: Build dist (installer)
+        run: npm run dist
+
+      - name: Locate installer
+        id: locate_installer
+        shell: pwsh
+        run: |
+          $exe = Get-ChildItem -Path dist -Filter *.exe -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
+          if ($exe) {
+            Write-Host "Found installer: $($exe.FullName)"
+            "installer=$($exe.FullName)" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          } else {
+            Write-Host "No single .exe found in dist/ — will upload dist/ as fallback"
+            "installer=" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          }
+
+      - name: Upload installer artifact (or dist/ fallback)
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-installer
+          path: |
+            ${{ steps.locate_installer.outputs.installer }}
+            dist/**
+
+      - name: Set VERSION env
+        run: echo "VERSION=$(node -p \"require('./package.json').version\")" >> $GITHUB_ENV
+
+      - name: Create GitHub Release (only on tag)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: actions/create-release@v1
+        id: create_release
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: ${{ github.ref_name }}
+          body: "Automated build for ${{ github.ref_name }}"
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload installer to Release (only on tag and if found)
+        if: startsWith(github.ref, 'refs/tags/') && steps.locate_installer.outputs.installer != ''
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ steps.locate_installer.outputs.installer }}
+          asset_name: Wayback-Media-Saver-${{ github.ref_name }}.exe
+          asset_content_type: application/octet-stream

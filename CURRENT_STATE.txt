@@ -1,0 +1,304 @@
+════════════════════════════════════════════════════════════════════════════
+                    UNWANTED TOOLS - ESTADO ATUAL v0.3.2
+════════════════════════════════════════════════════════════════════════════
+
+📊 RESUMO EXECUTIVO:
+
+Nome do Projeto:  Unwanted Tools
+Versão:           0.3.2 (upgrade para 0.4.0)
+Tipo:             Aplicativo Desktop (Electron + React + Vite)
+Autor:            KimmyOGato
+Licença:          MIT
+
+════════════════════════════════════════════════════════════════════════════
+
+📁 ESTRUTURA DE PASTAS:
+
+.github/                  → Configurações do GitHub
+src/                      → Código-fonte React
+├── App.jsx              → Componente principal (281 linhas)
+├── App.css              → Estilos (1099 linhas)
+├── main.jsx             → Entry point React
+├── index.css            → Reset CSS
+├── locales.js           → Traduções (pt-BR, en-US)
+├── assets/              → Imagens/ícones
+└── components/          → 18 componentes React
+    ├── WaybackSimpleSearch.jsx
+    ├── WaybackAdvanced.jsx
+    ├── Mp3Search.jsx
+    ├── SoulseekSearch.jsx
+    ├── VideoDownloader.jsx
+    ├── ThemeSelector.jsx
+    ├── Menu.jsx
+    ├── Navigation.jsx
+    ├── HeaderSettings.jsx
+    ├── UpdaterPrompt.jsx
+    ├── DownloadStatusBar.jsx
+    ├── Player.jsx
+    ├── ResultsGrid.jsx
+    ├── ResultCard.jsx
+    ├── SearchForm.jsx
+    ├── Statistics.jsx
+    ├── Modal.jsx
+    └── DownloadStatus.jsx
+
+electron/                 → Código Electron (Backend)
+├── main.js              → IPC handlers + APIs (1566 linhas)
+├── preload.js           → Bridge seguro
+├── puppeteer_fallback.js → Fallback para scraping
+└── soulseek.js          → Cliente Soulseek
+
+scripts/                  → Utilitários
+├── test-wayback-extract.js
+├── extract-tsv-from-memento.js
+├── get-wayback-memento.js
+├── run-puppeteer-test.js
+└── write-icon.js
+
+build/                    → Recursos para build
+├── icon.base64.txt
+└── README.txt
+
+dist/                     → Build de produção (gerado)
+node_modules/            → Dependências npm (gerado)
+
+════════════════════════════════════════════════════════════════════════════
+
+📄 ARQUIVOS DE CONFIGURAÇÃO:
+
+package.json              → Dependências e scripts npm
+vite.config.js            → Config bundler Vite
+index.html                → Template HTML
+.npmrc                    → Config npm
+.gitignore                → Git ignore rules
+
+════════════════════════════════════════════════════════════════════════════
+
+📚 DOCUMENTAÇÃO:
+
+README.md                           → Documentação principal
+BUILD_INSTRUCTIONS.md               → Instruções de build
+CHANGELOG.md                        → Histórico de mudanças
+PROJECT_COMPLETION_0.3.2.md         → Status v0.3.2
+RELEASE_INSTRUCTIONS_0.3.2.md       → Release notes
+RELEASE_SUMMARY_0.3.2.md            → Resumo release
+RELEASE_v0.3.2_STATUS.md            → Status final v0.3.2
+GITHUB_RELEASE_GUIDE.md             → Guia de release GitHub
+PUBLISHING.md                       → Publishing guide
+publish-release.ps1                 → Script de publicação
+setup.ps1                           → Script de setup
+
+════════════════════════════════════════════════════════════════════════════
+
+🔧 STACK TÉCNICO:
+
+Frontend:
+  - React 18.2.0       (UI components)
+  - Vite 5.0.0         (Bundler)
+  - Cheerio 1.0.0      (HTML parsing)
+
+Desktop:
+  - Electron 26.0.0    (Desktop framework)
+  - Electron Builder   (Packaging)
+  - Electron Updater   (Auto-updates)
+
+Backend/APIs:
+  - Node.js            (Runtime)
+  - node-fetch 2.6.7   (HTTP requests)
+  - puppeteer 24.30.0  (Browser automation)
+  - yt-dlp-exec 1.0.2  (YouTube downloader)
+  - ffmpeg-static      (Video processing)
+  - keytar 7.7.0       (Credential storage)
+  - slsk-client 1.1.0  (Soulseek P2P)
+  - ytdl-core 4.11.5   (YouTube fallback)
+
+════════════════════════════════════════════════════════════════════════════
+
+🎯 FUNCIONALIDADES PRINCIPAIS:
+
+1. Wayback Machine Search (Simples)
+   - Busca URLs arquivadas
+   - Filtra por tipo e período
+   - Preview de resultados
+
+2. Wayback Machine (Avançado)
+   - Scraping avançado
+   - Filtros personalizados
+   - Export de dados
+
+3. MP3 Search
+   - Busca de arquivos de áudio
+   - Download direto
+   - Integração com players
+
+4. Soulseek Search
+   - Busca P2P
+   - Download de compartilhados
+   - Status em tempo real
+
+5. Video Downloader
+   - YouTube e outros sites
+   - Conversão de áudio
+   - Download de streams
+
+6. Gerenciamento de Downloads
+   - Fila de downloads
+   - Progresso em tempo real
+   - Pausar/retomar
+
+7. Temas Customizáveis
+   - Preto (default)
+   - Roxo Escuro
+   - Vermelho Escuro
+   - Rosa
+   - Azul
+   - Verde
+   - Light
+
+8. Multilíngue
+   - Português (BR)
+   - English (US)
+
+9. Atualizações Automáticas
+    - Via Electron Updater
+    - Notificações
+
+════════════════════════════════════════════════════════════════════════════
+
+⚙️ SCRIPTS NPM:
+
+npm run dev              → Rodar Vite em dev
+npm run build            → Build para produção
+npm run preview          → Preview build local
+npm run electron-dev     → Rodar com Electron (dev)
+npm run electron-build   → Build com Electron
+npm start                → Rodar app já compilada
+npm run dist             → Gerar executável Windows
+npm run release          → Release versão
+
+════════════════════════════════════════════════════════════════════════════
+
+🎨 INTERFACE (App.css):
+
+Temas:
+  ✓ 6+ temas com variáveis CSS dinâmicas
+  ✓ Dark mode/Light mode
+  ✓ Transições suaves (0.4s)
+  ✓ Glassmorphism (backdrop-filter)
+  ✓ Gradientes personalizados
+
+Componentes:
+  ✓ Navbar sticky com 12px shadow
+  ✓ Grid responsivo
+  ✓ Cards com hover effects
+  ✓ Progress bars animadas
+  ✓ Modals
+  ✓ Dropdowns
+  ✓ Input fields customizados
+
+════════════════════════════════════════════════════════════════════════════
+
+📊 ESTATÍSTICAS:
+
+Linhas de Código (JavaScript/JSX):
+  - App.jsx: 281 linhas
+  - electron/main.js: 1566 linhas
+  - 19 componentes React
+  - ~3000+ linhas de código total
+
+Linhas de Estilos:
+  - App.css: 1099 linhas
+  - Múltiplos temas
+  - Design responsivo
+
+Documentação:
+  - 12+ arquivos MD/TXT
+  - ~500+ linhas
+
+════════════════════════════════════════════════════════════════════════════
+
+🔐 SEGURANÇA:
+
+✓ Context Isolation (Electron)
+✓ Preload script para APIs
+✓ Keytar para armazenamento seguro de credenciais
+✓ Validação de input
+✓ Sanitização de filenames
+
+════════════════════════════════════════════════════════════════════════════
+
+📈 PERFORMANCE:
+
+Build Size:
+  - dist/index.html: 0.40 kB (gzip: 0.27 kB)
+  - dist/assets/index-*.css: 18.04 kB (gzip: 4.04 kB)
+  - dist/assets/index-*.js: 193.46 kB (gzip: 60.73 kB)
+
+Build Time: ~1.3 segundos
+Bundler: Vite v5.4.21
+
+════════════════════════════════════════════════════════════════════════════
+
+❌ PROBLEMAS CONHECIDOS:
+
+1. Alguns arquivos de documentação extras criados:
+   - 00_LEIA_PRIMEIRO.txt
+   - ARCHITECTURE.md
+   - COMPLETE.txt
+   - INDEX.md
+   - MANIFEST.md
+   - QUICKSTART.md
+   - SETUP_PT-BR.md
+   - START.txt
+   - SUMMARY.txt
+   - TECHNICAL.md
+   (Esses foram criados durante testes e podem ser removidos)
+
+2. Arquivo de áudio extra:
+   - ManFiCool6000-ae020100.mp3 (pode ser removido)
+
+════════════════════════════════════════════════════════════════════════════
+
+✅ STATUS:
+
+[✓] Código fonte funcional
+[✓] Build compila sem erros
+[✓] Todos os componentes presentes
+[✓] Temas implementados
+[✓] Multilíngue (pt-BR, en-US)
+[✓] Documentação de release
+[✓] Scripts de build
+[✓] Configuração Electron
+
+⚠️ AÇÃO RECOMENDADA:
+
+Remover arquivos extras:
+  - 00_LEIA_PRIMEIRO.txt
+  - ARCHITECTURE.md
+  - COMPLETE.txt
+  - INDEX.md
+  - MANIFEST.md
+  - QUICKSTART.md
+  - SETUP_PT-BR.md
+  - START.txt
+  - SUMMARY.txt
+  - TECHNICAL.md
+  - ManFiCool6000-ae020100.mp3
+
+════════════════════════════════════════════════════════════════════════════
+
+📝 RESUMO FINAL:
+
+Projeto pronto para produção com:
+  ✓ Código organizado em componentes React
+  ✓ Backend Electron robusto com 1566 linhas
+  ✓ 19 componentes funcionais
+  ✓ 6+ temas customizáveis
+  ✓ Suporte multilíngue
+  ✓ Build otimizado (~254 KB total)
+  ✓ Documentação completa
+
+════════════════════════════════════════════════════════════════════════════
+
+Gerado: Nov 16, 2025
+Status: PRONTO PARA USO
