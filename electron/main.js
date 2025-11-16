@@ -10,6 +10,17 @@ try {
   // eslint-disable-next-line global-require
   const { autoUpdater: _au } = require('electron-updater')
   autoUpdater = _au
+  
+  // Configure updater to use the new Unwanted-Tools repository
+  if (autoUpdater) {
+    try {
+      autoUpdater.owner = 'KimmyOGato'
+      autoUpdater.repo = 'Unwanted-Tools'
+      console.log('[Main] Auto-updater configured for:', `${autoUpdater.owner}/${autoUpdater.repo}`)
+    } catch (e) {
+      console.log('[Main] Failed to configure auto-updater owner/repo:', e && e.message)
+    }
+  }
 } catch (e) {
   console.log('[Main] electron-updater not available:', e && e.message)
 }
